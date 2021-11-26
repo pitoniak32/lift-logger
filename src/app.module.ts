@@ -1,8 +1,16 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ApiModule } from './api/api.module';
+import { ConfigModule, ConfigService } from './config';
 
 @Module({
-  imports: [ApiModule],
+  imports: [
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useExisting: ConfigService,
+    }),
+    ApiModule
+  ],
   controllers: [],
   providers: [],
 })
