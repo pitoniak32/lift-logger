@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 
+// TODO: create more detailed data objects.
 export class CreateLiftLogDto {
   @IsString()
   @IsNotEmpty()

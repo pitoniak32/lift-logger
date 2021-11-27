@@ -14,8 +14,6 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger'
-import { doc } from 'prettier'
-import { title } from 'process'
 import { CreateLiftLogDto } from '../resources/create-lift-log.dto'
 import { ViewLiftLogDto } from '../resources/view-lift-log.dto'
 import { AppService } from '../services/app.service'
@@ -55,4 +53,6 @@ export class AppController {
   async deleteOneLiftLog(@Param('id') id: string): Promise<ViewLiftLogDto> {
     return this.appService.deleteOneLiftLog(id)
   }
+
+  // TODO: Add update endpoint.
 }

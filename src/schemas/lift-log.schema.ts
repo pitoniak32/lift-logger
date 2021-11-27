@@ -3,6 +3,8 @@ import { Document } from 'mongoose'
 
 export type LiftLogDocument = LiftLog & Document
 
+// TODO: create more detailed data objects.
+
 @Schema()
 export class LiftLog {
   @Prop()
