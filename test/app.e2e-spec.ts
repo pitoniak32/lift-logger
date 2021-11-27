@@ -21,4 +21,9 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+  it('/:id (GET) getOneLiftLog', () => {
+    return request(app.getHttpServer())
+      .get('/not-valid-id')
+      .expect(400)
+  })
 });
