@@ -7,4 +7,5 @@ export class LiftLogGroup {
 export class LiftLogItem {
   title: string
   content: string
+  date: Date
 }

@@ -1,20 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator'
-import { ApiProperty } from '@nestjs/swagger'
+import { PartialType } from '@nestjs/mapped-types'
+import { CreateLiftLogItemDto } from './create-lift-log-item.dto'
 
-export class UpdateLiftLogItemDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: 'squat pr',
-    description: 'title of the lifting log.',
-  })
-  title: string
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: '225 for 1',
-    description: 'content of the lift log.',
-  })
-  content: string
-}
+export class UpdateLiftLogItemDto  extends PartialType(CreateLiftLogItemDto) {}

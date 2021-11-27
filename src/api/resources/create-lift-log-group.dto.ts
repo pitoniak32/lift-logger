@@ -12,15 +12,15 @@ export class CreateLiftLogGroupDto {
   title: string
 
   @IsNotEmpty()
-  @ApiProperty({
-    example: [
-      {
-        title: "squat pr group",
-        items: [{title: "squat", content: "225 for 1"}],
-      }
-    ],
-    description: 'composite of groups and items.',
-  })
   @ValidateNested()
+  @ApiProperty({
+    example: [{title: "squat", content: "225 for 1"}],
+    description: 'list of lift log items.',
+  })
   items: CreateLiftLogItemDto[]
+
+  constructor(title: string, items: CreateLiftLogItemDto[]) {
+    this.title = title
+    this.items = items
+  }
 }

@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { LiftLogRoot, LiftLogRootDocument } from '../../schemas/lift-log.schema'
-import { CreateLiftLogGroupDto } from '../resources/create-lift-log-group.dto'
-import { UpdateLiftLogGroupDto } from '../resources/update-lift-log-group.dto'
+import { CreateLiftLogRootDto, UpdateLiftLogRootDto } from '../resources/create-lift-log-root.dto'
 
 @Injectable()
 export class AppService {
@@ -12,11 +11,9 @@ export class AppService {
   ) {}
 
   async createRootLiftLog(
-    createLiftLogGroup: CreateLiftLogGroupDto,
+    createLiftLogRoot: CreateLiftLogRootDto,
   ): Promise<LiftLogRootDocument> {
-    return await new this.liftLogModel({
-      liftLogGroups: [createLiftLogGroup]
-    }).save()
+    return await new this.liftLogModel(createLiftLogRoot).save()
   }
 
   async getRootLiftLogs(): Promise<LiftLogRootDocument[]> {
@@ -31,10 +28,10 @@ export class AppService {
     return await this.liftLogModel.findByIdAndDelete(id)
   }
 
-  async updateOneLiftLogGroup(id: string, updateLiftLogGroup: UpdateLiftLogGroupDto) {
+  async updateOneRootLiftLog(id: string, updateLiftLogRoot: UpdateLiftLogRootDto) {
     return await this.liftLogModel.findByIdAndUpdate(
       id,
-      { liftLogGroups: [updateLiftLogGroup] },
+      updateLiftLogRoot,
     ).clone()
   }
 }

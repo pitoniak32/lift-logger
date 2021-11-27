@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { AppController } from './app.controller'
 import { AppService } from '../services/app.service'
-import { CreateLiftLogDto } from '../resources/create-lift-log-item.dto'
-import { ViewLiftLogDto } from '../resources/view-lift-log.dto'
+import { CreateLiftLogGroupDto } from '../resources/create-lift-log-group.dto'
+import { ViewLiftLogGroupDto } from '../resources/view-lift-log.dto'
 
 describe('AppController', () => {
   let appController: AppController
-  let testCreatedLiftLog: CreateLiftLogDto
-  let testViewLiftLog: ViewLiftLogDto
+  let testCreateLiftLogGroup: CreateLiftLogGroupDto
+  let testViewLiftLogGroup: ViewLiftLogGroupDto
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -16,7 +16,7 @@ describe('AppController', () => {
         {
           provide: AppService,
           useValue: {
-            createLiftLog: jest.fn(),
+            createRootLiftLog: jest.fn(),
             getLiftLogs: jest.fn(),
             getOneLiftLog: jest.fn(),
             deleteOneLiftLog: jest.fn(),
@@ -27,75 +27,77 @@ describe('AppController', () => {
 
     appController = app.get<AppController>(AppController)
 
-    testCreatedLiftLog = {
+    const testDate = new Date()
+
+    testCreateLiftLogGroup = {
       title: 'test-title',
-      content: 'test-content',
+      items: [{title: 'test-item-title', content: 'test-content', date: testDate}]
     }
 
-    testViewLiftLog = {
+    testViewLiftLogGroup = {
       title: 'test-title',
-      content: 'test-content',
+      items: [{title: 'test-item-title', content: 'test-content', date: testDate}]
     }
   })
 
-  describe('createLiftLog', () => {
+  describe('createRootLiftLog', () => {
     it('should return ViewLiftLogDto with correct values', async () => {
       // Arrange
-      appController['appService'].createLiftLog = jest
+      appController['appService'].createRootLiftLog = jest
         .fn()
-        .mockResolvedValue(testCreatedLiftLog)
+        .mockResolvedValue(testCreateLiftLogGroup)
 
       // Act
-      const response = await appController.createLiftLog(testCreatedLiftLog)
+      const response = await appController.createRootLiftLog({ liftLogGroups: [testCreateLiftLogGroup] })
 
       // Assert
-      expect(response).toEqual(testViewLiftLog)
+      expect(response).toEqual(testViewLiftLogGroup)
     })
   })
 
-  describe('getLiftLogs', () => {
+  describe('getRootLiftLogs', () => {
     it('should return list of logs with correct values', async () => {
       // Arrange
-      appController['appService'].getLiftLogs = jest
+      appController['appService'].getRootLiftLogs = jest
         .fn()
-        .mockResolvedValue([testCreatedLiftLog, testCreatedLiftLog])
+        .mockResolvedValue([testCreateLiftLogGroup, testCreateLiftLogGroup])
 
       // Act
       const response = await appController.getLiftLogs()
 
       // Assert
       expect(response).toHaveLength(2)
-      expect(response).toEqual([testViewLiftLog, testViewLiftLog])
+      expect(response).toEqual([testViewLiftLogGroup, testViewLiftLogGroup])
     })
   })
 
-  describe('getOneLiftLog', () => {
+  describe('getOneRootLiftLog', () => {
     it('should return one lift log with correct values', async () => {
       // Arrange
-      appController['appService'].getOneLiftLog = jest
+      appController['appService'].getOneRootLiftLog = jest
         .fn()
-        .mockResolvedValue(testCreatedLiftLog)
+        .mockResolvedValue(testCreateLiftLogGroup)
 
       // Act
       const response = await appController.getOneLiftLog('test-id')
 
       // Assert
-      expect(response).toEqual(testViewLiftLog)
+      expect(response).toEqual(testViewLiftLogGroup)
     })
   })
 
-  describe('deleteOneLiftLog', () => {
+  describe('deleteOneRootLiftLog', () => {
     it('should delete one lift log', async () => {
       // Arrange
-      appController['appService'].deleteOneLiftLog = jest
+      appController['appService'].deleteOneRootLiftLog = jest
         .fn()
-        .mockResolvedValue(testCreatedLiftLog)
+        .mockResolvedValue(testCreateLiftLogGroup)
 
       // Act
       const response = await appController.deleteOneLiftLog('test-id')
 
       // Assert
-      expect(response).toEqual(testViewLiftLog)
+      expect(response).toEqual(testViewLiftLogGroup)
     })
   })
 })

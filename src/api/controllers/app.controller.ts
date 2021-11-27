@@ -18,6 +18,7 @@ import {
 } from '@nestjs/swagger'
 import { LiftLogRootDocument } from '../../schemas/lift-log.schema'
 import { CreateLiftLogGroupDto } from '../resources/create-lift-log-group.dto'
+import { CreateLiftLogRootDto, UpdateLiftLogRootDto } from '../resources/create-lift-log-root.dto'
 import { UpdateLiftLogGroupDto } from '../resources/update-lift-log-group.dto'
 import { AppService } from '../services/app.service'
 
@@ -31,9 +32,9 @@ export class AppController {
   @ApiBadRequestResponse({ status: 400, description: 'Invalid request body.' })
   @HttpCode(HttpStatus.CREATED)
   async createRootLiftLog(
-    @Body() createLiftLogGroup: CreateLiftLogGroupDto,
+    @Body() createLiftLogRoot: CreateLiftLogRootDto,
   ): Promise<LiftLogRootDocument> {
-    return await this.appService.createRootLiftLog(createLiftLogGroup)
+    return await this.appService.createRootLiftLog(createLiftLogRoot)
   }
 
   @Get()
@@ -61,8 +62,8 @@ export class AppController {
   @Put(':id')
   async updateOneLiftLogGroup(
     @Param('id') id: string,
-    @Body() updateLiftLogGroupDto: UpdateLiftLogGroupDto
+    @Body() updateLiftLogRootDto: UpdateLiftLogRootDto
   ) {
-    return this.appService.updateOneLiftLogGroup(id, updateLiftLogGroupDto)
+    return this.appService.updateOneRootLiftLog(id, updateLiftLogRootDto)
   }
 }
