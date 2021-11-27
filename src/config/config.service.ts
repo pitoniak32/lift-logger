@@ -1,10 +1,11 @@
-import { MongooseModuleOptions, MongooseOptionsFactory } from "@nestjs/mongoose"
+import { MongooseModuleOptions, MongooseOptionsFactory } from '@nestjs/mongoose'
 import * as os from 'os'
 import { join } from 'path'
 
 export class ConfigService implements MongooseOptionsFactory {
-
-  createMongooseOptions(): MongooseModuleOptions | Promise<MongooseModuleOptions> {
+  createMongooseOptions():
+    | MongooseModuleOptions
+    | Promise<MongooseModuleOptions> {
     const credentials = join(os.homedir(), '.cert', 'lift-logger.pem')
 
     return {

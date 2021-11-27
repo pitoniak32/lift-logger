@@ -1,7 +1,7 @@
-import { getModelToken } from "@nestjs/mongoose"
-import { Test, TestingModule } from "@nestjs/testing"
-import { LiftLog } from "../../schemas/lift-log.schema"
-import { AppService } from "./app.service"
+import { getModelToken } from '@nestjs/mongoose'
+import { Test, TestingModule } from '@nestjs/testing'
+import { LiftLog } from '../../schemas/lift-log.schema'
+import { AppService } from './app.service'
 
 describe('AppService', () => {
   let service: AppService

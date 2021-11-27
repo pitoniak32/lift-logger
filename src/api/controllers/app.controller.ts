@@ -1,20 +1,36 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
-import { doc } from 'prettier';
-import { title } from 'process';
-import { CreateLiftLogDto } from '../resources/create-lift-log.dto';
-import { ViewLiftLogDto } from '../resources/view-lift-log.dto';
-import { AppService } from '../services/app.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common'
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger'
+import { doc } from 'prettier'
+import { title } from 'process'
+import { CreateLiftLogDto } from '../resources/create-lift-log.dto'
+import { ViewLiftLogDto } from '../resources/view-lift-log.dto'
+import { AppService } from '../services/app.service'
 
 @Controller('v1/lift-logs')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post('create')
-  @ApiCreatedResponse({description: 'lift log created', type: String})
-  @ApiBadRequestResponse({status: 400, description: 'Invalid request body.'})
+  @ApiCreatedResponse({ description: 'lift log created', type: String })
+  @ApiBadRequestResponse({ status: 400, description: 'Invalid request body.' })
   @HttpCode(HttpStatus.CREATED)
-  async createLiftLog(@Body() createLiftLog: CreateLiftLogDto): Promise<ViewLiftLogDto> {
+  async createLiftLog(
+    @Body() createLiftLog: CreateLiftLogDto,
+  ): Promise<ViewLiftLogDto> {
     return await this.appService.createLiftLog(createLiftLog)
   }
 
@@ -22,7 +38,7 @@ export class AppController {
   @ApiOkResponse({ description: 'lift logs found' })
   @ApiNotFoundResponse({ description: 'lift logs not found' })
   @HttpCode(HttpStatus.OK)
-  async getLiftLogs(): Promise<ViewLiftLogDto[]>{
+  async getLiftLogs(): Promise<ViewLiftLogDto[]> {
     return await this.appService.getLiftLogs()
   }
 

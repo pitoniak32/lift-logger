@@ -13,8 +13,8 @@ describe('AppController', () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [
-        { provide:
-          AppService,
+        {
+          provide: AppService,
           useValue: {
             createLiftLog: jest.fn(),
             getLiftLogs: jest.fn(),
@@ -25,23 +25,25 @@ describe('AppController', () => {
       ],
     }).compile()
 
-    appController = app.get<AppController>(AppController);
+    appController = app.get<AppController>(AppController)
 
     testCreatedLiftLog = {
       title: 'test-title',
       content: 'test-content',
     }
 
-    testViewLiftLog  = {
+    testViewLiftLog = {
       title: 'test-title',
-      content: 'test-content'
+      content: 'test-content',
     }
   })
 
   describe('createLiftLog', () => {
     it('should return ViewLiftLogDto with correct values', async () => {
       // Arrange
-      appController['appService'].createLiftLog = jest.fn().mockResolvedValue(testCreatedLiftLog)
+      appController['appService'].createLiftLog = jest
+        .fn()
+        .mockResolvedValue(testCreatedLiftLog)
 
       // Act
       const response = await appController.createLiftLog(testCreatedLiftLog)
@@ -54,7 +56,9 @@ describe('AppController', () => {
   describe('getLiftLogs', () => {
     it('should return list of logs with correct values', async () => {
       // Arrange
-      appController['appService'].getLiftLogs = jest.fn().mockResolvedValue([testCreatedLiftLog, testCreatedLiftLog])
+      appController['appService'].getLiftLogs = jest
+        .fn()
+        .mockResolvedValue([testCreatedLiftLog, testCreatedLiftLog])
 
       // Act
       const response = await appController.getLiftLogs()
@@ -68,7 +72,9 @@ describe('AppController', () => {
   describe('getOneLiftLog', () => {
     it('should return one lift log with correct values', async () => {
       // Arrange
-      appController['appService'].getOneLiftLog = jest.fn().mockResolvedValue(testCreatedLiftLog)
+      appController['appService'].getOneLiftLog = jest
+        .fn()
+        .mockResolvedValue(testCreatedLiftLog)
 
       // Act
       const response = await appController.getOneLiftLog('test-id')
@@ -81,7 +87,9 @@ describe('AppController', () => {
   describe('deleteOneLiftLog', () => {
     it('should delete one lift log', async () => {
       // Arrange
-      appController['appService'].deleteOneLiftLog = jest.fn().mockResolvedValue(testCreatedLiftLog)
+      appController['appService'].deleteOneLiftLog = jest
+        .fn()
+        .mockResolvedValue(testCreatedLiftLog)
 
       // Act
       const response = await appController.deleteOneLiftLog('test-id')
