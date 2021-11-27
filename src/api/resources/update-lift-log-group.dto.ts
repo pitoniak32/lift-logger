@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString, ValidateNested } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
+import { UpdateLiftLogItemDto } from './update-lift-log-item.dto'
 
 export class UpdateLiftLogGroupDto {
   @IsString()
@@ -18,26 +19,8 @@ export class UpdateLiftLogGroupDto {
         items: [{title: "squat", content: "225 for 1"}],
       }
     ],
-    description: 'composite of groups and items.',
+    description: 'list of lift log items',
   })
   @ValidateNested()
-  items: ViewLiftLogItemDto[]
-}
-
-export class ViewLiftLogItemDto {
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: 'squat pr',
-    description: 'title of the lifting log.',
-  })
-  title: string
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    example: '225 for 1',
-    description: 'content of the lift log.',
-  })
-  content: string
+  items: UpdateLiftLogItemDto[]
 }

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { AppController } from './app.controller'
 import { AppService } from '../services/app.service'
-import { CreateLiftLogDto } from '../resources/create-lift-log.dto'
+import { CreateLiftLogDto } from '../resources/create-lift-log-item.dto'
 import { ViewLiftLogDto } from '../resources/view-lift-log.dto'
 
 describe('AppController', () => {

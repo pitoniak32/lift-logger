@@ -1,8 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 
-// TODO: create more detailed data objects.
-export class CreateLiftLogDto {
+export class CreateLiftLogItemDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
@@ -14,8 +13,8 @@ export class CreateLiftLogDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({
-    example: '225 for 1 rep',
-    description: 'content for the lifting log.',
+    example: '225 for 1',
+    description: 'content of the lift log.',
   })
   content: string
 }

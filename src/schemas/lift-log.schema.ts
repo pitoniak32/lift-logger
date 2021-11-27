@@ -1,17 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+import { LiftLogGroup, LiftLogItem } from './lift-log.component'
 
-export type LiftLogDocument = LiftLog & Document
-
-// TODO: create more detailed data objects.
+export type LiftLogRootDocument = LiftLogRoot & Document
 
 @Schema()
-export class LiftLog {
-  @Prop()
-  title: string
+export class LiftLogRoot {
 
-  @Prop()
-  content: string
+  @Prop([LiftLogItem])
+  liftLogGroups: LiftLogGroup[]
 }
 
-export const LiftLogSchema = SchemaFactory.createForClass(LiftLog)
+export const LiftLogRootSchema = SchemaFactory.createForClass(LiftLogRoot)

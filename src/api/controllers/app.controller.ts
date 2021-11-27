@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Put,
   HttpCode,
   HttpStatus,
   Param,
@@ -13,46 +14,55 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiTags,
 } from '@nestjs/swagger'
-import { CreateLiftLogDto } from '../resources/create-lift-log.dto'
-import { ViewLiftLogDto } from '../resources/view-lift-log.dto'
+import { LiftLogRootDocument } from '../../schemas/lift-log.schema'
+import { CreateLiftLogGroupDto } from '../resources/create-lift-log-group.dto'
+import { UpdateLiftLogGroupDto } from '../resources/update-lift-log-group.dto'
 import { AppService } from '../services/app.service'
 
 @Controller('v1/lift-logs')
+@ApiTags('lift-logs')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post('create')
-  @ApiCreatedResponse({ description: 'lift log created', type: String })
+  @Post('create-root')
+  @ApiCreatedResponse({ description: 'lift log root created', type: String })
   @ApiBadRequestResponse({ status: 400, description: 'Invalid request body.' })
   @HttpCode(HttpStatus.CREATED)
-  async createLiftLog(
-    @Body() createLiftLog: CreateLiftLogDto,
-  ): Promise<ViewLiftLogDto> {
-    return await this.appService.createLiftLog(createLiftLog)
+  async createRootLiftLog(
+    @Body() createLiftLogGroup: CreateLiftLogGroupDto,
+  ): Promise<LiftLogRootDocument> {
+    return await this.appService.createRootLiftLog(createLiftLogGroup)
   }
 
   @Get()
   @ApiOkResponse({ description: 'lift logs found' })
   @ApiNotFoundResponse({ description: 'lift logs not found' })
   @HttpCode(HttpStatus.OK)
-  async getLiftLogs(): Promise<ViewLiftLogDto[]> {
-    return await this.appService.getLiftLogs()
+  async getLiftLogs(): Promise<LiftLogRootDocument[]> {
+    return await this.appService.getRootLiftLogs()
   }
 
   @Get(':id')
   @ApiOkResponse({ description: 'lift log found' })
   @ApiNotFoundResponse({ description: 'lift log not found' })
   @HttpCode(HttpStatus.OK)
-  async getOneLiftLog(@Param('id') id: string): Promise<ViewLiftLogDto> {
-    return await this.appService.getOneLiftLog(id)
+  async getOneLiftLog(@Param('id') id: string): Promise<LiftLogRootDocument> {
+    return await this.appService.getOneRootLiftLog(id)
   }
 
   @Delete(':id')
   @ApiOkResponse({ description: 'lift log deleted' })
-  async deleteOneLiftLog(@Param('id') id: string): Promise<ViewLiftLogDto> {
-    return this.appService.deleteOneLiftLog(id)
+  async deleteOneLiftLog(@Param('id') id: string): Promise<LiftLogRootDocument> {
+    return this.appService.deleteOneRootLiftLog(id)
   }
 
-  // TODO: Add update endpoint.
+  @Put(':id')
+  async updateOneLiftLogGroup(
+    @Param('id') id: string,
+    @Body() updateLiftLogGroupDto: UpdateLiftLogGroupDto
+  ) {
+    return this.appService.updateOneLiftLogGroup(id, updateLiftLogGroupDto)
+  }
 }
