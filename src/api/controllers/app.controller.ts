@@ -18,7 +18,10 @@ import {
 } from '@nestjs/swagger'
 import { LiftLogRootDocument } from '../../schemas/lift-log.schema'
 import { CreateLiftLogGroupDto } from '../resources/create-lift-log-group.dto'
-import { CreateLiftLogRootDto, UpdateLiftLogRootDto } from '../resources/create-lift-log-root.dto'
+import {
+  CreateLiftLogRootDto,
+  UpdateLiftLogRootDto,
+} from '../resources/create-lift-log-root.dto'
 import { UpdateLiftLogGroupDto } from '../resources/update-lift-log-group.dto'
 import { AppService } from '../services/app.service'
 
@@ -55,14 +58,16 @@ export class AppController {
 
   @Delete(':id')
   @ApiOkResponse({ description: 'lift log deleted' })
-  async deleteOneLiftLog(@Param('id') id: string): Promise<LiftLogRootDocument> {
+  async deleteOneLiftLog(
+    @Param('id') id: string,
+  ): Promise<LiftLogRootDocument> {
     return this.appService.deleteOneRootLiftLog(id)
   }
 
   @Put(':id')
   async updateOneLiftLogGroup(
     @Param('id') id: string,
-    @Body() updateLiftLogRootDto: UpdateLiftLogRootDto
+    @Body() updateLiftLogRootDto: UpdateLiftLogRootDto,
   ) {
     return this.appService.updateOneRootLiftLog(id, updateLiftLogRootDto)
   }

@@ -14,9 +14,9 @@ export class ViewLiftLogGroupDto {
   @ApiProperty({
     example: [
       {
-        title: "squat pr group",
-        items: [{title: "squat", content: "225 for 1"}],
-      }
+        title: 'squat pr group',
+        items: [{ title: 'squat', content: '225 for 1' }],
+      },
     ],
     description: 'composite of groups and items.',
   })
@@ -49,7 +49,7 @@ export class ViewLiftLogItemDto {
   @IsNotEmpty()
   @ApiProperty({
     example: '',
-    description: 'time related to lift log.'
+    description: 'time related to lift log.',
   })
   date: Date
 

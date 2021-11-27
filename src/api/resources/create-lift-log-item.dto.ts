@@ -20,7 +20,7 @@ export class CreateLiftLogItemDto {
   @IsNotEmpty()
   @ApiProperty({
     example: '',
-    description: 'time related to lift log.'
+    description: 'time related to lift log.',
   })
   date: Date
 

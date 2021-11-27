@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types'
-import { IsNotEmpty, ValidateNested } from "class-validator"
-import { CreateLiftLogGroupDto } from "./create-lift-log-group.dto"
+import { IsNotEmpty, ValidateNested } from 'class-validator'
+import { CreateLiftLogGroupDto } from './create-lift-log-group.dto'
 
 export class CreateLiftLogRootDto {
   @IsNotEmpty()

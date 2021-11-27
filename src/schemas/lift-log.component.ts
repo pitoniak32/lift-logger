@@ -1,4 +1,3 @@
-
 export class LiftLogGroup {
   title: string
   items: LiftLogItem[]

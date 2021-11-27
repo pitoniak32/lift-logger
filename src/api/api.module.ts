@@ -6,7 +6,9 @@ import { AppService } from './services/app.service'
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: LiftLogRoot.name, schema: LiftLogRootSchema }]),
+    MongooseModule.forFeature([
+      { name: LiftLogRoot.name, schema: LiftLogRootSchema },
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -31,12 +31,16 @@ describe('AppController', () => {
 
     testCreateLiftLogGroup = {
       title: 'test-title',
-      items: [{title: 'test-item-title', content: 'test-content', date: testDate}]
+      items: [
+        { title: 'test-item-title', content: 'test-content', date: testDate },
+      ],
     }
 
     testViewLiftLogGroup = {
       title: 'test-title',
-      items: [{title: 'test-item-title', content: 'test-content', date: testDate}]
+      items: [
+        { title: 'test-item-title', content: 'test-content', date: testDate },
+      ],
     }
   })
 
@@ -48,7 +52,9 @@ describe('AppController', () => {
         .mockResolvedValue(testCreateLiftLogGroup)
 
       // Act
-      const response = await appController.createRootLiftLog({ liftLogGroups: [testCreateLiftLogGroup] })
+      const response = await appController.createRootLiftLog({
+        liftLogGroups: [testCreateLiftLogGroup],
+      })
 
       // Assert
       expect(response).toEqual(testViewLiftLogGroup)
