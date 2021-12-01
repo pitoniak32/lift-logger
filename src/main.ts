@@ -17,8 +17,8 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe())
 
-  // TODO: Use better logger.
-  // TODO: Add logs for debugging error and info.
+  app.enableCors({ methods:['GET'] })
+
   await app.listen(3000)
 }
 bootstrap()
