@@ -55,7 +55,7 @@ export class LiftRootController {
   @ApiNotFoundResponse({ description: 'lift root not found' })
   @HttpCode(HttpStatus.OK)
   async getLiftRootsByUserId(@Param('id') id: string): Promise<ViewLiftRootDto[]> {
-    return await this.liftRootService.getOneRootLiftUserId(id)
+    return await this.liftRootService.getRootLiftsByUserId(id)
   }
 
   @Delete(':id')
