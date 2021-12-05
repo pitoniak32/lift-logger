@@ -1,18 +1,18 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
 
-export type LiftLogDocument = LiftLog & Document
+export type UserDocument = User & Document
 
 @Schema()
-export class LiftLog {
+export class User {
   @Prop()
-  userId: string
+  firstName: string
 
   @Prop()
-  liftId: string
+  lastName: string
 
   @Prop()
-  title: string
+  email: string
 
   @Prop()
   createdAt: number
@@ -21,10 +21,10 @@ export class LiftLog {
   updatedAt: number
 
   @Prop()
-  notes: string
+  weight: number
 
   @Prop()
-  location: string
+  height: number
 }
 
-export const LiftLogSchema = SchemaFactory.createForClass(LiftLog)
+export const UserSchema = SchemaFactory.createForClass(User)
