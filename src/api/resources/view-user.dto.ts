@@ -1,25 +1,25 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
-export class ViewLiftLogDto {
+export class ViewUserDto {
   @IsString()
   @IsNotEmpty()
-  userId: string
+  firstName: string
 
   @IsString()
   @IsNotEmpty()
-  liftId: string
+  lastName: string
 
   @IsString()
   @IsNotEmpty()
-  title: string
+  email: string
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  notes: string
+  weight: number
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  location: string
+  height: number
 
   @IsNumber()
   @IsNotEmpty()
@@ -29,20 +29,21 @@ export class ViewLiftLogDto {
   @IsNotEmpty()
   updatedAt: number
 
+
   constructor(
-    userId: string,
-    liftId: string,
-    title: string,
-    notes: string,
-    location: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    weight: number,
+    height: number,
     createdAt: number,
     updatedAt: number,
   ) {
-    this.userId = userId
-    this.liftId = liftId
-    this.title = title
-    this.notes = notes
-    this.location = location
+    this.firstName = firstName
+    this.lastName = lastName
+    this.weight = weight
+    this.height = height
+    this.email = email
     this.createdAt = createdAt
     this.updatedAt = updatedAt
   }

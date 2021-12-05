@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
+import { IsDateString, IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
-export class ViewLiftLogDto {
+export class LiftLogDto {
   @IsString()
   @IsNotEmpty()
   userId: string
@@ -23,11 +23,7 @@ export class ViewLiftLogDto {
 
   @IsNumber()
   @IsNotEmpty()
-  createdAt: number
-
-  @IsNumber()
-  @IsNotEmpty()
-  updatedAt: number
+  dayOfLog: number
 
   constructor(
     userId: string,
@@ -35,15 +31,11 @@ export class ViewLiftLogDto {
     title: string,
     notes: string,
     location: string,
-    createdAt: number,
-    updatedAt: number,
   ) {
     this.userId = userId
     this.liftId = liftId
     this.title = title
     this.notes = notes
     this.location = location
-    this.createdAt = createdAt
-    this.updatedAt = updatedAt
   }
 }

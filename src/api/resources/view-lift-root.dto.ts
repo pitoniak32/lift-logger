@@ -1,48 +1,37 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
 
-export class ViewLiftLogDto {
-  @IsString()
+export class ViewLiftRootDto {
   @IsNotEmpty()
+  @IsString()
   userId: string
 
-  @IsString()
   @IsNotEmpty()
-  liftId: string
-
   @IsString()
-  @IsNotEmpty()
-  title: string
+  label: string
 
+  @IsNotEmpty()
   @IsString()
-  @IsNotEmpty()
-  notes: string
+  currentPrLogId: string
 
-  @IsString()
   @IsNotEmpty()
-  location: string
-
   @IsNumber()
-  @IsNotEmpty()
   createdAt: number
 
-  @IsNumber()
   @IsNotEmpty()
+  @IsNumber()
   updatedAt: number
+
 
   constructor(
     userId: string,
-    liftId: string,
-    title: string,
-    notes: string,
-    location: string,
+    label: string,
+    currentPrLogId: string,
     createdAt: number,
     updatedAt: number,
   ) {
     this.userId = userId
-    this.liftId = liftId
-    this.title = title
-    this.notes = notes
-    this.location = location
+    this.label = label
+    this.currentPrLogId = currentPrLogId
     this.createdAt = createdAt
     this.updatedAt = updatedAt
   }

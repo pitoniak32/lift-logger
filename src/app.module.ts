@@ -11,7 +11,5 @@ import { ConfigModule, ConfigService } from './config'
     }),
     ApiModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
