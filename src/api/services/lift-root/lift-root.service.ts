@@ -31,6 +31,11 @@ export class LiftRootService {
     return await this.liftRootModel.findById(id)
   }
 
+  async getRootLiftsByUserId(id: string): Promise<ViewLiftRootDto[]> {
+    this.logger.log(`getting all root lifts with userId: ${id}...`)
+    return await this.liftRootModel.find({ userId: id })
+  }
+
   async deleteOneRootLift(id: string): Promise<ViewLiftRootDto> {
     this.logger.log(`deleting one root lift with id: ${id}...`)
     return await this.liftRootModel.findByIdAndDelete(id)

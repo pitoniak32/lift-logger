@@ -50,6 +50,14 @@ export class LiftRootController {
     return await this.liftRootService.getOneRootLift(id)
   }
 
+  @Get('user/:id')
+  @ApiOkResponse({ description: 'lift root found' })
+  @ApiNotFoundResponse({ description: 'lift root not found' })
+  @HttpCode(HttpStatus.OK)
+  async getLiftRootsByUserId(@Param('id') id: string): Promise<ViewLiftRootDto[]> {
+    return await this.liftRootService.getOneRootLiftUserId(id)
+  }
+
   @Delete(':id')
   @ApiOkResponse({ description: 'lift log deleted' })
   async deleteOneLiftRoot(
