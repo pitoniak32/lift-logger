@@ -7,7 +7,10 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
+  Res,
 } from '@nestjs/common'
+import { Request, Response, response } from 'express'
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -37,7 +40,9 @@ export class UserController {
   @ApiOkResponse({ description: 'user(s) found' })
   @ApiNotFoundResponse({ description: 'user(s) not found' })
   @HttpCode(HttpStatus.OK)
-  async getUsers(): Promise<UserDto[]> {
+  async getUsers(@Req() request: Request, @Res({ passthrough: true }) response: Response): Promise<UserDto[]> {
+    console.log(request.cookies)
+    response.cookie('test-cookie', 'value1')
     return await this.userService.getUsers()
   }
 
