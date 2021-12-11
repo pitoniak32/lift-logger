@@ -11,6 +11,10 @@ export class ViewUserDto {
 
   @IsString()
   @IsNotEmpty()
+  username: string
+
+  @IsString()
+  @IsNotEmpty()
   email: string
 
   @IsNumber()

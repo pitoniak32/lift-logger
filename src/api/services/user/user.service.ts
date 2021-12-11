@@ -4,12 +4,15 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from '../../../schemas/user.schema';
 import { UserDto } from '../../resources/user.dto';
 import { ViewUserDto } from '../../resources/view-user.dto';
+import * as bcrypt from 'bcrypt';
+import { ConfigService } from '../../../config';
 
 @Injectable()
 export class UserService {
   private readonly logger = new Logger(UserService.name)
 
   constructor(
+    private configService: ConfigService,
     @InjectModel(User.name)
     private userModel: Model<UserDocument>
   ) {}
@@ -18,7 +21,9 @@ export class UserService {
     createUser: UserDto,
   ): Promise<ViewUserDto> {
     const dateNow = new Date()
-    return await new this.userModel({ ...createUser, createdAt: dateNow, updatedAt: dateNow }).save()
+    this.logger.log('creating user...')
+    const hash = await bcrypt.hash(createUser.password, this.configService.saltRounds);
+    return await new this.userModel({ ...createUser, password: hash, createdAt: dateNow, updatedAt: dateNow }).save()
   }
 
   async getUsers(): Promise<ViewUserDto[]> {

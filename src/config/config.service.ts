@@ -1,6 +1,22 @@
 import { MongooseModuleOptions, MongooseOptionsFactory } from '@nestjs/mongoose'
+import { JwtModuleOptions, JwtOptionsFactory } from '@nestjs/jwt'
 
-export class ConfigService implements MongooseOptionsFactory {
+export class ConfigService implements MongooseOptionsFactory, JwtOptionsFactory {
+  get saltRounds() {
+    return 10
+  }
+
+  get jwtSecret() {
+    return 'testing-secret'
+  }
+
+  createJwtOptions(): JwtModuleOptions | Promise<JwtModuleOptions> {
+    return {
+      secret: this.jwtSecret,
+      signOptions: { expiresIn: '60s' },
+    }
+  }
+  
   createMongooseOptions():
     | MongooseModuleOptions
     | Promise<MongooseModuleOptions> {
@@ -11,4 +27,6 @@ export class ConfigService implements MongooseOptionsFactory {
       useUnifiedTopology: true,
     }
   }
+
+  
 }

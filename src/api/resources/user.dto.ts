@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
+import { User } from '../../schemas/user.schema'
 
 export class UserDto {
   @IsString()
@@ -8,6 +9,14 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   lastName: string
+
+  @IsString()
+  @IsNotEmpty()
+  username: string
+
+  @IsString()
+  @IsNotEmpty()
+  password: string
 
   @IsString()
   @IsNotEmpty()
@@ -24,12 +33,16 @@ export class UserDto {
   constructor(
     firstName: string,
     lastName: string,
+    username: string,
+    password: string,
     email: string,
     weight: number,
     height: number,
   ) {
     this.firstName = firstName
     this.lastName = lastName
+    this.username = username
+    this.password = password
     this.weight = weight
     this.height = height
     this.email = email

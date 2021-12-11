@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
+import { AuthModule } from '../auth/auth.module'
 import { LiftLog, LiftLogSchema } from '../schemas/lift-log.schema'
 import { LiftRoot, LiftRootSchema } from '../schemas/lift-root.schema'
 import { User, UserSchema } from '../schemas/user.schema'
@@ -17,6 +18,7 @@ import { UserService } from './services/user/user.service'
       { name: LiftRoot.name, schema: LiftRootSchema },
       { name: LiftLog.name, schema: LiftLogSchema },
     ]),
+    AuthModule,
   ],
   controllers: [
     UserController,
