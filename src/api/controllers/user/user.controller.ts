@@ -22,9 +22,9 @@ import {
 import { UserDto } from '../../resources/user.dto'
 import { UserService } from '../../services/user/user.service'
 import { ViewUserDto } from '../../resources/view-user.dto'
-import { AuthGuard } from '@nestjs/passport'
 import { AuthService } from '../../../auth/auth.service'
-import { JwtAuthGuard } from '../../../auth/jwt-auth.guard'
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
+import { LocalAuthGuard } from '../../../auth/guards/local-auth.guard'
 
 @Controller('v1/user')
 @ApiTags('user')
@@ -34,16 +34,10 @@ export class UserController {
     private readonly authService: AuthService,
   ) {}
 
-  @UseGuards(AuthGuard('local'))
-  @Post('auth/login')
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
   async login(@Req() request: Request) {
     return await this.authService.login(request.user);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  async getProfile() {
-    return await this.userService.getUsers()
   }
 
   @Post('create')
@@ -57,6 +51,7 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'user(s) found' })
   @ApiNotFoundResponse({ description: 'user(s) not found' })
   @HttpCode(HttpStatus.OK)
@@ -67,6 +62,7 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'user found' })
   @ApiNotFoundResponse({ description: 'user not found' })
   @HttpCode(HttpStatus.OK)
@@ -75,6 +71,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'user deleted' })
   async deleteOneUser(
     @Param('id') id: string,

@@ -13,7 +13,7 @@ export class ConfigService implements MongooseOptionsFactory, JwtOptionsFactory 
   createJwtOptions(): JwtModuleOptions | Promise<JwtModuleOptions> {
     return {
       secret: this.jwtSecret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1 day' },
     }
   }
   
