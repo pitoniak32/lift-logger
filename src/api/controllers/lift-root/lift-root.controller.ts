@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common'
 import {
   ApiBadRequestResponse,
@@ -15,6 +16,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger'
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
 import { LiftRootDto } from '../../resources/lift-root.dto'
 import { ViewLiftRootDto } from '../../resources/view-lift-root.dto'
 import { LiftRootService } from '../../services/lift-root/lift-root.service'
@@ -25,6 +27,7 @@ export class LiftRootController {
   constructor(private readonly liftRootService: LiftRootService) {}
 
   @Post('create')
+  @UseGuards(JwtAuthGuard)
   @ApiCreatedResponse({ description: 'lift log root created', type: String })
   @ApiBadRequestResponse({ status: 400, description: 'Invalid request body.' })
   @HttpCode(HttpStatus.CREATED)
@@ -35,6 +38,7 @@ export class LiftRootController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'lift logs found' })
   @ApiNotFoundResponse({ description: 'lift logs not found' })
   @HttpCode(HttpStatus.OK)
@@ -43,6 +47,7 @@ export class LiftRootController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'lift root found' })
   @ApiNotFoundResponse({ description: 'lift root not found' })
   @HttpCode(HttpStatus.OK)
@@ -51,6 +56,7 @@ export class LiftRootController {
   }
 
   @Get('user/:id')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'lift root found' })
   @ApiNotFoundResponse({ description: 'lift root not found' })
   @HttpCode(HttpStatus.OK)
@@ -59,6 +65,7 @@ export class LiftRootController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'lift log deleted' })
   async deleteOneLiftRoot(
     @Param('id') id: string,

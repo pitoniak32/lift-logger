@@ -40,4 +40,8 @@ export class UserService {
     this.logger.log(`deleting one user with id: ${id}...`)
     return await this.userModel.findByIdAndDelete(id)
   }
+
+  async findOneForAuth(username: string): Promise<any> {
+    return await this.userModel.findOne({ username }).select("+password")
+  }
 }
