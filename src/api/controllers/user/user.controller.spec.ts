@@ -1,9 +1,9 @@
 import { INestApplication } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../../../auth/auth.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { ConfigModule, ConfigService } from '../../../config';
-import { UserService } from '../../services/user/user.service';
+import { UserService } from '../../../services/user/user.service';
 import { UserController } from './user.controller';
 
 jest.setTimeout(10000)

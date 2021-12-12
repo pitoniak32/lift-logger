@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ApiModule } from './api/api.module'
 import { ConfigModule, ConfigService } from './config'
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './services/auth/auth.module';
+import { UserModule } from './services/user/user.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     ApiModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [],
 })

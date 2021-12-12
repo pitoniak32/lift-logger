@@ -16,7 +16,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger'
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
+import { JwtAuthGuard } from '../../../services/auth/guards/jwt-auth.guard'
 import { LiftLogDto } from '../../resources/lift-log.dto'
 import { ViewLiftLogDto } from '../../resources/view-lift-log.dto'
 import { LiftLogService } from '../../services/lift-log/lift-log.service'

@@ -20,11 +20,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger'
 import { UserDto } from '../../resources/user.dto'
-import { UserService } from '../../services/user/user.service'
+import { UserService } from '../../../services/user/user.service'
 import { ViewUserDto } from '../../resources/view-user.dto'
-import { AuthService } from '../../../auth/auth.service'
-import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard'
-import { LocalAuthGuard } from '../../../auth/guards/local-auth.guard'
+import { AuthService } from '../../../services/auth/auth.service'
+import { JwtAuthGuard } from '../../../services/auth/guards/jwt-auth.guard'
+import { LocalAuthGuard } from '../../../services/auth/guards/local-auth.guard'
 
 @Controller('v1/user')
 @ApiTags('user')

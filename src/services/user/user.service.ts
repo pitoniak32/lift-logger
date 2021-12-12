@@ -1,11 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from '../../../schemas/user.schema';
-import { UserDto } from '../../resources/user.dto';
-import { ViewUserDto } from '../../resources/view-user.dto';
+import { User, UserDocument } from '../../schemas/user.schema';
+import { UserDto } from '../../api/resources/user.dto';
+import { ViewUserDto } from '../../api/resources/view-user.dto';
 import * as bcrypt from 'bcrypt';
-import { ConfigService } from '../../../config';
+import { ConfigService } from '../../config';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,7 @@ export class UserService {
   constructor(
     private configService: ConfigService,
     @InjectModel(User.name)
-    private userModel: Model<UserDocument>
+    private userModel: Model<UserDocument>,
   ) {}
 
   async createUser(
