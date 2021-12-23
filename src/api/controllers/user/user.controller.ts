@@ -23,8 +23,9 @@ import { UserDto } from '../../resources/user.dto'
 import { UserService } from '../../../services/user/user.service'
 import { ViewUserDto } from '../../resources/view-user.dto'
 import { AuthService } from '../../../services/auth/auth.service'
-import { JwtAuthGuard } from '../../../services/auth/guards/jwt-auth.guard'
+import { JwtAccessAuthGuard } from '../../../services/auth/guards/jwt-access-auth.guard'
 import { LocalAuthGuard } from '../../../services/auth/guards/local-auth.guard'
+import { JwtRefreshAuthGuard } from '../../../services/auth/guards/jwt-refresh-auth.guard'
 
 @Controller('v1/user')
 @ApiTags('user')
@@ -34,10 +35,28 @@ export class UserController {
     private readonly authService: AuthService,
   ) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Req() request: Request) {
-    return await this.authService.login(request.user);
+  @UseGuards(LocalAuthGuard)
+  @ApiOkResponse()
+  @ApiBadRequestResponse()
+  @HttpCode(HttpStatus.OK)
+  async login(
+    @Res({passthrough: true}) response: Response,
+    @Req() request: Request,
+  ) {
+    const { access_token, refresh_token } = await this.authService.login(request.user) 
+
+    response.cookie('jibs', refresh_token, { httpOnly: true })
+
+    return { access_token } 
+  }
+
+  @ApiOkResponse()
+  @ApiBadRequestResponse()
+  @UseGuards(JwtRefreshAuthGuard)
+  @Post()
+  async refresh() {
+    
   }
 
   @Post('create')
@@ -51,18 +70,16 @@ export class UserController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessAuthGuard)
   @ApiOkResponse({ description: 'user(s) found' })
   @ApiNotFoundResponse({ description: 'user(s) not found' })
   @HttpCode(HttpStatus.OK)
   async getUsers(@Req() request: Request, @Res({ passthrough: true }) response: Response): Promise<ViewUserDto[]> {
-    console.log(request.cookies)
-    response.cookie('test-cookie', 'value1')
     return await this.userService.getUsers()
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessAuthGuard)
   @ApiOkResponse({ description: 'user found' })
   @ApiNotFoundResponse({ description: 'user not found' })
   @HttpCode(HttpStatus.OK)
@@ -71,7 +88,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessAuthGuard)
   @ApiOkResponse({ description: 'user deleted' })
   async deleteOneUser(
     @Param('id') id: string,

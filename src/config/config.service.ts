@@ -6,15 +6,24 @@ export class ConfigService implements MongooseOptionsFactory, JwtOptionsFactory 
     return 10
   }
 
-  get jwtSecret() {
-    return 'testing-secret'
+  get jwtAccessSecret() {
+    return process.env.JWT_ACCESS_SECRET || 'testing-access-secret'
+  }
+  
+  get jwtAccessExpiresIn() {
+    return process.env.JWT_ACCESS_EXPIRES_IN || '5m' 
+  }
+
+  get jwtRefreshSecret() {
+    return process.env.JWT_REFRESH_SECRET || 'testing-refresh-secret'
+  }
+
+  get jwtRefreshExpiresIn() {
+    return process.env.JWT_REFRESH_EXPIRES_IN || '10m' 
   }
 
   createJwtOptions(): JwtModuleOptions | Promise<JwtModuleOptions> {
-    return {
-      secret: this.jwtSecret,
-      signOptions: { expiresIn: '1 day' },
-    }
+    return { }
   }
   
   createMongooseOptions():
