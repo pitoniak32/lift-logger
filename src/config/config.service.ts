@@ -11,7 +11,7 @@ export class ConfigService implements MongooseOptionsFactory, JwtOptionsFactory 
   }
   
   get jwtAccessExpiresIn() {
-    return process.env.JWT_ACCESS_EXPIRES_IN || '5m' 
+    return process.env.JWT_ACCESS_EXPIRES_IN || '10s' 
   }
 
   get jwtRefreshSecret() {
