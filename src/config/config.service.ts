@@ -21,6 +21,10 @@ export class ConfigService implements MongooseOptionsFactory, JwtOptionsFactory 
   get jwtRefreshExpiresIn() {
     return process.env.JWT_REFRESH_EXPIRES_IN || '10m' 
   }
+  
+  get refreshTokenKey() {
+    return process.env.REFRESH_TOKEN_KEY || 'jibs'
+  }
 
   createJwtOptions(): JwtModuleOptions | Promise<JwtModuleOptions> {
     return { }

@@ -41,18 +41,19 @@ export class UserController {
   @ApiBadRequestResponse()
   @HttpCode(HttpStatus.OK)
   async login(
-    @Res({passthrough: true}) response: Response,
     @Req() request: Request,
   ) {
-    return await this.authService.login(response, request.user)
+    return request.user
   }
 
   @ApiOkResponse()
   @ApiBadRequestResponse()
   @UseGuards(JwtRefreshAuthGuard)
-  @Post()
-  async refresh() {
-    
+  @Post('refresh')
+  async refresh(
+    @Req() request: Request,
+  ) {
+    return request.user 
   }
 
   @Post('create')

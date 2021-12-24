@@ -13,37 +13,44 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
+  async validateUser(username: string, pass: string, response: Response): Promise<any> {
+    let access_token = ''   
+    let refresh_token = ''
     const user = await this.userService.findOneForAuth(username)
-    
+
     if (user && await bcrypt.compare(pass, user.password)) {
-      const { password, ...result } = user
-      return result
+      const payload = { username: user.username, userId: user._id};
+      
+      access_token = this.signAccessToken(payload) 
+      refresh_token = this.signRefreshToken(payload) 
+
+      this.putRefreshInCookie(response, refresh_token)
     }
-    return null;
+
+    return { access_token }
   }
 
-  async login(response: Response, user: any) {
-    const payload = { username: user._doc.username, userId: user._doc._id.toString() };
-    
-    const access_token = this.jwtService.sign(
+  signAccessToken(payload: any) {
+    return this.jwtService.sign(
       payload, 
       {
         secret: this.configService.jwtAccessSecret,
         expiresIn: this.configService.jwtAccessExpiresIn,
       }
     )
+  }
 
-    const refresh_token = this.jwtService.sign(
+  signRefreshToken(payload: any) {
+    return this.jwtService.sign(
       payload,
       {
         secret: this.configService.jwtRefreshSecret,
         expiresIn: this.configService.jwtRefreshExpiresIn,
       }
     )
+  }
 
-    response.cookie('jibs', refresh_token) 
-
-    return { access_token }
+  putRefreshInCookie(response: Response, token: string) {
+    response.cookie(this.configService.refreshTokenKey, token) 
   }
 }
