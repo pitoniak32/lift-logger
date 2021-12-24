@@ -23,7 +23,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  async login(response: Response, user: any) {
     const payload = { username: user._doc.username, userId: user._doc._id.toString() };
     
     const access_token = this.jwtService.sign(
@@ -42,6 +42,8 @@ export class AuthService {
       }
     )
 
-    return { access_token, refresh_token };
+    response.cookie('jibs', refresh_token) 
+
+    return { access_token }
   }
 }

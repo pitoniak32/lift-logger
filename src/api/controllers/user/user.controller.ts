@@ -44,11 +44,7 @@ export class UserController {
     @Res({passthrough: true}) response: Response,
     @Req() request: Request,
   ) {
-    const { access_token, refresh_token } = await this.authService.login(request.user) 
-
-    response.cookie('jibs', refresh_token, { httpOnly: true })
-
-    return { access_token } 
+    return await this.authService.login(response, request.user)
   }
 
   @ApiOkResponse()
