@@ -35,9 +35,8 @@ export class ConfigService
   createMongooseOptions():
     | MongooseModuleOptions
     | Promise<MongooseModuleOptions> {
-
     // `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.9lce6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
-    let mongoUri = process.env.MONGO_URI
+    const mongoUri = process.env.MONGO_URI
 
     return {
       uri: mongoUri || `mongodb://localhost:27017/lift-logger`,

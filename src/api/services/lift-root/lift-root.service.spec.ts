@@ -1,15 +1,32 @@
-import { getModelToken } from '@nestjs/mongoose'
-import { Test, TestingModule } from '@nestjs/testing'
+import { INestApplication } from '@nestjs/common'
+import { getModelToken, MongooseModule } from '@nestjs/mongoose'
+import { Test } from '@nestjs/testing'
+import { ConfigModule, ConfigService } from '../../../config'
 import { LiftLog } from '../../../schemas/lift-log.schema'
-import { AppService } from './lift-root.service'
+import { LiftRoot, LiftRootSchema } from '../../../schemas/lift-root.schema'
+import { LiftRootService } from './lift-root.service'
 
 describe('AppService', () => {
-  let service: AppService
+  let app: INestApplication
+  let service: LiftRootService
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
+      imports: [
+        ConfigModule,
+        MongooseModule.forRootAsync({
+          imports: [ConfigModule],
+          useExisting: ConfigService,
+        }),
+        MongooseModule.forFeature([
+          {
+            name: LiftRoot.name,
+            schema: LiftRootSchema,
+          },
+        ]),
+      ],
       providers: [
-        AppService,
+        LiftRootService,
         {
           provide: getModelToken(LiftLog.name),
           useValue: {},
@@ -17,7 +34,16 @@ describe('AppService', () => {
       ],
     }).compile()
 
-    service = app.get<AppService>(AppService)
+    app = module.createNestApplication()
+    await app.init()
+
+    service = app.get<LiftRootService>(LiftRootService)
+
+    await service['liftRootModel'].deleteMany()
+  })
+
+  afterAll(async () => {
+    await app.close()
   })
 
   it('should be defined', () => {
