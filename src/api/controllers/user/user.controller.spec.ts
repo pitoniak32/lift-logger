@@ -1,10 +1,10 @@
-import { INestApplication } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../../../services/auth/auth.service';
-import { ConfigModule, ConfigService } from '../../../config';
-import { UserService } from '../../../services/user/user.service';
-import { UserController } from './user.controller';
+import { INestApplication } from '@nestjs/common'
+import { MongooseModule } from '@nestjs/mongoose'
+import { Test, TestingModule } from '@nestjs/testing'
+import { AuthService } from '../../../services/auth/auth.service'
+import { ConfigModule, ConfigService } from '../../../config'
+import { UserService } from '../../../services/user/user.service'
+import { UserController } from './user.controller'
 
 jest.setTimeout(10000)
 
@@ -25,19 +25,21 @@ describe('UserController', () => {
       providers: [
         { provide: UserService, useValue: {} },
         { provide: AuthService, useValue: {} },
-      ]
+      ],
     }).compile()
 
     app = await module.createNestApplication().init()
 
     controller = module.get<UserController>(UserController)
-  });
+  })
 
-  afterAll(async () => { await app.close() })
+  afterAll(async () => {
+    await app.close()
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+    expect(controller).toBeDefined()
+  })
 
   describe('login', () => {
     it('should respond with jwt token after user is logged in', async () => {
@@ -53,26 +55,18 @@ describe('UserController', () => {
   })
 
   describe('createUserLog', () => {
-    it('should ', async () => {
-      
-    })
+    it('should ', async () => {})
   })
 
   describe('getUsers', () => {
-    it('should ', async () => {
-      
-    })
+    it('should ', async () => {})
   })
 
   describe('getOneUser', () => {
-    it('should ', async () => {
-      
-    })
+    it('should ', async () => {})
   })
 
   describe('deleteOneUser', () => {
-    it('should ', async () => {
-      
-    })
+    it('should ', async () => {})
   })
-});
+})

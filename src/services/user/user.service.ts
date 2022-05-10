@@ -1,29 +1,35 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User, UserDocument } from '../../schemas/user.schema';
-import { UserDto } from '../../api/resources/user.dto';
-import { ViewUserDto } from '../../api/resources/view-user.dto';
-import * as bcrypt from 'bcrypt';
-import { ConfigService } from '../../config';
+import { Injectable, Logger } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { User, UserDocument } from '../../schemas/user.schema'
+import { UserDto } from '../../api/resources/user.dto'
+import { ViewUserDto } from '../../api/resources/view-user.dto'
+import * as bcrypt from 'bcrypt'
+import { ConfigService } from '../../config'
 
 @Injectable()
 export class UserService {
-private readonly logger = new Logger(UserService.name)
+  private readonly logger = new Logger(UserService.name)
 
-constructor(
-  private configService: ConfigService,
-  @InjectModel(User.name)
-  private userModel: Model<UserDocument>,
-) {}
+  constructor(
+    private configService: ConfigService,
+    @InjectModel(User.name)
+    private userModel: Model<UserDocument>,
+  ) {}
 
-  async createUser(
-    createUser: UserDto,
-  ): Promise<ViewUserDto> {
+  async createUser(createUser: UserDto): Promise<ViewUserDto> {
     const dateNow = new Date()
     this.logger.log('creating user...')
-    const hash = await bcrypt.hash(createUser.password, this.configService.saltRounds);
-    return await new this.userModel({ ...createUser, password: hash, createdAt: dateNow, updatedAt: dateNow }).save()
+    const hash = await bcrypt.hash(
+      createUser.password,
+      this.configService.saltRounds,
+    )
+    return await new this.userModel({
+      ...createUser,
+      password: hash,
+      createdAt: dateNow,
+      updatedAt: dateNow,
+    }).save()
   }
 
   async getUsers(): Promise<ViewUserDto[]> {
@@ -42,6 +48,6 @@ constructor(
   }
 
   async findOneForAuth(username: string): Promise<any> {
-    return await this.userModel.findOne({ username }).select("+password")
+    return await this.userModel.findOne({ username }).select('+password')
   }
 }

@@ -14,11 +14,13 @@ export class LiftRootService {
     private liftRootModel: Model<LiftRootDocument>,
   ) {}
 
-  async createRootLift(
-    createLiftRoot: LiftRootDto,
-  ): Promise<ViewLiftRootDto> {
+  async createRootLift(createLiftRoot: LiftRootDto): Promise<ViewLiftRootDto> {
     const dateNow = new Date()
-    return await new this.liftRootModel({ ...createLiftRoot, createdAt: dateNow, updatedAt: dateNow }).save()
+    return await new this.liftRootModel({
+      ...createLiftRoot,
+      createdAt: dateNow,
+      updatedAt: dateNow,
+    }).save()
   }
 
   async getRootLifts(): Promise<ViewLiftRootDto[]> {

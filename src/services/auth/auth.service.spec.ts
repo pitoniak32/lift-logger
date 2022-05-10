@@ -1,12 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from '../user/user.service';
-import { AuthService } from './auth.service';
-import * as bcrypt from 'bcrypt';
+import { Test, TestingModule } from '@nestjs/testing'
+import { UserService } from '../user/user.service'
+import { AuthService } from './auth.service'
+import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 
-
 describe('AuthService', () => {
-  let service: AuthService;
+  let service: AuthService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -15,21 +14,21 @@ describe('AuthService', () => {
         { provide: UserService, useValue: {} },
         { provide: JwtService, useValue: {} },
       ],
-    }).compile();
+    }).compile()
 
-    service = module.get<AuthService>(AuthService);
-  });
+    service = module.get<AuthService>(AuthService)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+    expect(service).toBeDefined()
+  })
 
   describe('validateUser', () => {
     it('should return user with the password removed if provided password matches stored password', async () => {
       // Arrange
       service['userService'].findOneForAuth = jest.fn().mockResolvedValue({
         username: 'test-username',
-        password: bcrypt.hashSync('test-password', 10)
+        password: bcrypt.hashSync('test-password', 10),
       })
 
       // Act
@@ -43,7 +42,7 @@ describe('AuthService', () => {
       // Arrange
       service['userService'].findOneForAuth = jest.fn().mockResolvedValue({
         username: 'test-username',
-        password: bcrypt.hashSync('test-password', 10)
+        password: bcrypt.hashSync('test-password', 10),
       })
 
       // Act
@@ -60,10 +59,13 @@ describe('AuthService', () => {
       service['jwtService'].sign = jest.fn().mockReturnValue('test-jwt')
 
       // Act
-      const jwt = await service.login({ username: 'test-username', userId: 'test-id' })
+      const jwt = await service.login({
+        username: 'test-username',
+        userId: 'test-id',
+      })
 
       // Arrange
       expect(jwt).toEqual({ access_token: 'test-jwt' })
     })
   })
-});
+})

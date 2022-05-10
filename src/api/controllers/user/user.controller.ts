@@ -40,9 +40,7 @@ export class UserController {
   @ApiOkResponse()
   @ApiBadRequestResponse()
   @HttpCode(HttpStatus.OK)
-  async login(
-    @Req() request: Request,
-  ) {
+  async login(@Req() request: Request) {
     return request.user
   }
 
@@ -50,19 +48,15 @@ export class UserController {
   @ApiBadRequestResponse()
   @UseGuards(JwtRefreshAuthGuard)
   @Post('refresh')
-  async refresh(
-    @Req() request: Request,
-  ) {
-    return request.user 
+  async refresh(@Req() request: Request) {
+    return request.user
   }
 
   @Post('create')
   @ApiCreatedResponse({ description: 'user created', type: String })
   @ApiBadRequestResponse({ status: 400, description: 'Invalid request body.' })
   @HttpCode(HttpStatus.CREATED)
-  async createUserLog(
-    @Body() createUser: UserDto,
-  ): Promise<ViewUserDto> {
+  async createUserLog(@Body() createUser: UserDto): Promise<ViewUserDto> {
     return await this.userService.createUser(createUser)
   }
 
@@ -71,7 +65,10 @@ export class UserController {
   @ApiOkResponse({ description: 'user(s) found' })
   @ApiNotFoundResponse({ description: 'user(s) not found' })
   @HttpCode(HttpStatus.OK)
-  async getUsers(@Req() request: Request, @Res({ passthrough: true }) response: Response): Promise<ViewUserDto[]> {
+  async getUsers(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<ViewUserDto[]> {
     return await this.userService.getUsers()
   }
 
@@ -87,9 +84,7 @@ export class UserController {
   @Delete(':id')
   @UseGuards(JwtAccessAuthGuard)
   @ApiOkResponse({ description: 'user deleted' })
-  async deleteOneUser(
-    @Param('id') id: string,
-  ): Promise<ViewUserDto> {
+  async deleteOneUser(@Param('id') id: string): Promise<ViewUserDto> {
     return this.userService.deleteOneUser(id)
   }
 }

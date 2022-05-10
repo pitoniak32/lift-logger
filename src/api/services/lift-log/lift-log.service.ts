@@ -1,9 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { LiftLog, LiftLogDocument } from '../../../schemas/lift-log.schema';
-import { LiftLogDto } from '../../resources/lift-log.dto';
-import { ViewLiftLogDto } from '../../resources/view-lift-log.dto';
+import { Injectable, Logger } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { LiftLog, LiftLogDocument } from '../../../schemas/lift-log.schema'
+import { LiftLogDto } from '../../resources/lift-log.dto'
+import { ViewLiftLogDto } from '../../resources/view-lift-log.dto'
 
 @Injectable()
 export class LiftLogService {
@@ -14,11 +14,13 @@ export class LiftLogService {
     private liftLogModel: Model<LiftLogDocument>,
   ) {}
 
-  async createLiftLog(
-    createLiftLog: LiftLogDto,
-  ): Promise<ViewLiftLogDto> {
+  async createLiftLog(createLiftLog: LiftLogDto): Promise<ViewLiftLogDto> {
     const dateNow = new Date()
-    return await new this.liftLogModel({ ...createLiftLog, createdAt: dateNow, updatedAt: dateNow }).save()
+    return await new this.liftLogModel({
+      ...createLiftLog,
+      createdAt: dateNow,
+      updatedAt: dateNow,
+    }).save()
   }
 
   async getLiftLogs(): Promise<ViewLiftLogDto[]> {
@@ -35,4 +37,4 @@ export class LiftLogService {
     this.logger.log(`deleting one lift log with id: ${id}...`)
     return await this.liftLogModel.findByIdAndDelete(id)
   }
-} 
+}

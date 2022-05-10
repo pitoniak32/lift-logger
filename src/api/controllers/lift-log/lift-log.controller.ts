@@ -58,9 +58,7 @@ export class LiftLogController {
   @Delete(':id')
   @UseGuards(JwtAccessAuthGuard)
   @ApiOkResponse({ description: 'lift log deleted' })
-  async deleteOneLiftLog(
-    @Param('id') id: string,
-  ): Promise<ViewLiftLogDto> {
+  async deleteOneLiftLog(@Param('id') id: string): Promise<ViewLiftLogDto> {
     return this.liftLogService.deleteOneLiftLog(id)
   }
 }

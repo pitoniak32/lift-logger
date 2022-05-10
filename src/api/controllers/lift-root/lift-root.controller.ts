@@ -60,16 +60,16 @@ export class LiftRootController {
   @ApiOkResponse({ description: 'lift root found' })
   @ApiNotFoundResponse({ description: 'lift root not found' })
   @HttpCode(HttpStatus.OK)
-  async getLiftRootsByUserId(@Param('id') id: string): Promise<ViewLiftRootDto[]> {
+  async getLiftRootsByUserId(
+    @Param('id') id: string,
+  ): Promise<ViewLiftRootDto[]> {
     return await this.liftRootService.getRootLiftsByUserId(id)
   }
 
   @Delete(':id')
   @UseGuards(JwtAccessAuthGuard)
   @ApiOkResponse({ description: 'lift log deleted' })
-  async deleteOneLiftRoot(
-    @Param('id') id: string,
-  ): Promise<ViewLiftRootDto> {
+  async deleteOneLiftRoot(@Param('id') id: string): Promise<ViewLiftRootDto> {
     return this.liftRootService.deleteOneRootLift(id)
   }
 }

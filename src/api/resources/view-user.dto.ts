@@ -33,7 +33,6 @@ export class ViewUserDto {
   @IsNotEmpty()
   updatedAt: number
 
-
   constructor(
     firstName: string,
     lastName: string,

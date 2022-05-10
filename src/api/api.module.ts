@@ -19,14 +19,7 @@ import { LiftRootService } from './services/lift-root/lift-root.service'
     AuthModule,
     UserModule,
   ],
-  controllers: [
-    LiftRootController,
-    LiftLogController,
-    UserController,
-  ],
-  providers: [
-    LiftRootService,
-    LiftLogService
-  ],
+  controllers: [LiftRootController, LiftLogController, UserController],
+  providers: [LiftRootService, LiftLogService],
 })
 export class ApiModule {}

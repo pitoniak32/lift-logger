@@ -12,11 +12,7 @@ export class LiftRootDto {
   @IsString()
   currentPrLogId: string
 
-  constructor(
-    userId: string,
-    label: string,
-    currentPrLogId: string,
-  ) {
+  constructor(userId: string, label: string, currentPrLogId: string) {
     this.userId = userId
     this.label = label
     this.currentPrLogId = currentPrLogId

@@ -21,7 +21,6 @@ export class ViewLiftRootDto {
   @IsNumber()
   updatedAt: number
 
-
   constructor(
     userId: string,
     label: string,
