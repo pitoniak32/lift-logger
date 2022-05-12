@@ -1,0 +1,19 @@
+name: lift-logger-ci-workflow 
+on:
+  push:
+    branches-ignore: 
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - name: Docker Compose
+        run: docker compose up -d
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run lint
+      - run: npm run test
