@@ -1,7 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { Test, TestingModule } from '@nestjs/testing'
-import { appendFile } from 'fs'
+import { Test } from '@nestjs/testing'
 import { ConfigModule, ConfigService } from '../../../config'
 import { LiftLog, LiftLogSchema } from '../../../schemas/lift-log.schema'
 import { LiftLogService } from './lift-log.service'
@@ -41,5 +40,6 @@ describe('LiftLogService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined()
+    expect(service['liftLogModel']).toBeDefined()
   })
 })
