@@ -5,7 +5,7 @@ import { User, UserDocument } from '../../schemas/user.schema'
 import { UserDto } from '../../api/resources/user.dto'
 import { ViewUserDto } from '../../api/resources/view-user.dto'
 import * as bcrypt from 'bcrypt'
-import { ConfigService } from '../../config'
+import { ConfigService } from '../../config' 
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,7 @@ export class UserService {
 
   async createUser(createUser: UserDto): Promise<ViewUserDto> {
     const dateNow = new Date()
-    this.logger.log('creating user...')
+    this.logger.log('creating user... ')
     const hash = await bcrypt.hash(
       createUser.password,
       this.configService.saltRounds,

@@ -11,7 +11,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Lift Logs')
-    .setDescription('Api to track lifting logs')
+    .setDescription('Api to track lifting logs.')
     .setVersion('1.0')
     .addTag('lift-logs')
     .build()
