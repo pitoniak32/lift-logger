@@ -19,3 +19,4 @@ jobs:
       - run: npm run test
       - run: echo "::error file=src/main.ts,line=14,col=47,::Maybe Write Better Code Next Time" 
       - run: echo "::error file=src/services/user/user.service.ts,line=22,col=37,endColumn=7::Missing semicolon"
+      - run: echo "::error file=src/main.ts,line=27,col=37,endColumn=7::Missing semicolon"
