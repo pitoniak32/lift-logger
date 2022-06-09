@@ -17,4 +17,4 @@ jobs:
       - run: npm run build --if-present
       - run: npm run lint
       - run: npm run test
-      - run: echo "::error file=main.ts,line=8,col=15,endColumn=16::Maybe Write Better Code Next Time."
+      - run: echo "::error file=main.ts,line=8,col=15,endColumn=16::Maybe Write Better Code Next Time." 
