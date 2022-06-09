@@ -19,7 +19,7 @@ export class UserService {
 
   async createUser(createUser: UserDto): Promise<ViewUserDto> {
     const dateNow = new Date()
-    this.logger.log('creating user... ')
+    this.logger.log('creating user...')
     const hash = await bcrypt.hash(
       createUser.password,
       this.configService.saltRounds,
